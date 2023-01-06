@@ -193,9 +193,7 @@ impl ActionKV {
 
     let checksum = crc32::checksum_ieee(&tmp);
 
-    let next_byte = SeekFrom::End(0);
-    let current_position = f.seek(SeekFrom::Current(0))?;
-    f.seek(next_byte)?;
+    let current_position = f.seek(SeekFrom::End(0))?;
     f.write_u32::<LittleEndian>(checksum)?;
     f.write_u32::<LittleEndian>(key_len as u32)?;
     f.write_u32::<LittleEndian>(val_len as u32)?;
